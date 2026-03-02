@@ -1,0 +1,52 @@
+name: Simple Dev 
+on:
+  push:
+    branches: ["main"]
+jobs:
+  dev:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Run code
+        run: python dev.py
+
+name: Simple test
+on:
+  push:
+    branches: ["main"]
+jobs:
+  dev:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Run code
+        run: python test.py
+
+name: Simple Prod
+on:
+  push:
+    branches: ["main"]
+jobs:
+  dev:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Run code
+        run: python prod.py        
+
+        

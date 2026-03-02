@@ -1,52 +1,54 @@
-name: Simple Dev 
+name: CI Pipeline (Dev -> Test -> Prod)
+
 on:
   push:
     branches: ["main"]
+  workflow_dispatch:
+
 jobs:
   dev:
+    name: Simple Dev
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
+
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
           python-version: "3.11"
-      - name: Run code
+
+      - name: Run dev
         run: python dev.py
 
-name: Simple test
-on:
-  push:
-    branches: ["main"]
-jobs:
-  dev:
+  test:
+    name: Simple Test
     runs-on: ubuntu-latest
+    needs: dev
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
+
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
           python-version: "3.11"
-      - name: Run code
+
+      - name: Run test
         run: python test.py
 
-name: Simple Prod
-on:
-  push:
-    branches: ["main"]
-jobs:
-  dev:
+  prod:
+    name: Simple Prod
     runs-on: ubuntu-latest
+    needs: test
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
+
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
           python-version: "3.11"
-      - name: Run code
-        run: python prod.py        
 
-        
+      - name: Run prod
+        run: python prod.py
